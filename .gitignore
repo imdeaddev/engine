@@ -1,0 +1,9 @@
+*
+!*/**
+!Source/
+!.clang-format
+!.gitignore
+!CMakeLists.txt
+!CMakePresets.json
+!LICENSE
+!vcpkg.json

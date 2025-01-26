@@ -1,0 +1,20 @@
+{
+    "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/main/docs/vcpkg.schema.json",
+    "dependencies": [
+        "glm",
+        {
+            "name": "glfw3"
+        },
+        "volk",
+        "vulkan-memory-allocator",
+        {
+            "name": "imgui",
+            "features": [
+                "glfw-binding",
+                "vulkan-binding"
+            ]
+        },
+        "stb",
+        "fastgltf"
+    ]
+}
