@@ -1,4 +1,5 @@
 file(GLOB_RECURSE ENGINE_SOURCE_FILES Private/*.cpp)
+configure_file(Public/version.h.in ${CMAKE_CURRENT_SOURCE_DIR}/Public/Engine/version.h)
 
 add_library(engine SHARED ${ENGINE_SOURCE_FILES})
 target_link_libraries(
@@ -15,5 +16,6 @@ target_include_directories(
 )
 target_link_libraries(
     engine PUBLIC
+    nlohmann_json::nlohmann_json
     glm::glm
 )
