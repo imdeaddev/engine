@@ -1,6 +1,7 @@
 #pragma once
 #include <engine/export_macros.h>
 #include <engine/result.h>
+#include <engine/platform/input_system.h>
 
 typedef struct GLFWwindow GLFWwindow;
 typedef struct GLFWmonitor GLFWmonitor;
@@ -10,6 +11,8 @@ typedef struct VkSurfaceKHR_T *VkSurfaceKHR;
 
 namespace engine {
 class ENGINEAPI WindowSystem {
+    static constexpr uint32_t minWindowWidth = 640;
+    static constexpr uint32_t minWindowHeight = 480;
     WindowSystem() = default;
     WindowSystem(const WindowSystem &) = delete;
     WindowSystem &operator=(const WindowSystem &) = delete;
@@ -19,9 +22,11 @@ class ENGINEAPI WindowSystem {
     bool m_alive = false;
     bool m_framebufferSizeChangedInLastFrame = false;
     uint32_t m_width = 0, m_height = 0;
+    uint32_t m_framebufferWidth = 0, m_framebufferHeight = 0;
     uint32_t m_screenWidth = 0, m_screenHeight = 0;
     bool m_borderless = false;
     bool m_fullscreen = false;
+    EMouseMode m_internalMouseMode = EMouseMode::Free;
     friend struct WindowCallbacks;
 
     void change_window_size();
@@ -39,6 +44,10 @@ public:
     constexpr bool is_framebuffer_size_changed() const { return m_framebufferSizeChangedInLastFrame; }
     constexpr uint32_t get_width() const { return m_width; }
     constexpr uint32_t get_height() const { return m_height; }
+    constexpr uint32_t get_framebuffer_width() const { return m_framebufferWidth; }
+    constexpr uint32_t get_framebuffer_height() const { return m_framebufferHeight; }
+    constexpr uint32_t get_screen_width() const { return m_screenWidth; }
+    constexpr uint32_t get_screen_height() const { return m_screenHeight; }
     constexpr bool is_borderless() const { return m_borderless; }
     constexpr bool is_fullscreen() const { return m_fullscreen; }
 
@@ -63,9 +72,7 @@ public:
             change_window_style();
         }
     }
-    constexpr void close() {
-        m_alive = false;
-    }
+    constexpr void close() { m_alive = false; }
 };
 
 inline auto &window_system() { return WindowSystem::instance(); }

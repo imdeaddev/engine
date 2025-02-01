@@ -1,6 +1,7 @@
 #include <engine/platform/project_system.h>
 #include <engine/platform/file_system.h>
 #include <engine/platform/window_system.h>
+#include <engine/platform/input_system.h>
 #include <iostream>
 
 int main(int argc, const char *argv[]) {
@@ -10,9 +11,11 @@ int main(int argc, const char *argv[]) {
     if (engine::succeeded(wnd.init())) {
         while (wnd.is_alive()) {
             wnd.update();
+            if (engine::input_system().is_key_just_pressed(engine::EKeyCode::Escape)) {
+                wnd.close();
+            }
         }
-    }
-    else {
+    } else {
         std::cerr << "Failed to create window" << std::endl;
     }
     wnd.destroy();
